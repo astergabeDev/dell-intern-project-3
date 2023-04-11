@@ -1,7 +1,6 @@
-// Defina as variáveis para os tons de roxo
-$primary-color: #4b0082; // Indigo
-$secondary-color: #9370db; // Medium Purple
-$tertiary-color: #e6e6fa; // Lavender
+$primary-color: #4b0082;
+$secondary-color: #9370db;
+$tertiary-color: #e6e6fa;
 $dark-text-color: #222;
 $body-font: Arial, sans-serif;
 $box-shadow-color: rgba(0, 0, 0, 0.1);
@@ -93,7 +92,7 @@ header {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.95);
   padding: 20px;
   overflow-y: auto;
   box-sizing: border-box;
