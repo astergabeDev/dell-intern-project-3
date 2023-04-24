@@ -1,20 +1,29 @@
+// Define constants for API key and Movie Database base URL
 const API_KEY = "a7fe84011d201ece1739765158833a11";
 const MOVIE_DB_BASE_URL = "https://api.themoviedb.org/3";
 
-function searchMovies(searchQuery) {
+// Function to search for movies based on a query
+const searchMovies = (searchQuery) => {
+  // Encode the search query
   const encodedQuery = encodeURIComponent(searchQuery);
 
+  // Construct the search URL using the API key and encoded query
   const searchURL = `${MOVIE_DB_BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodedQuery}`;
 
+  // Fetch data from the API, parse the JSON, and display the results
   fetch(searchURL)
     .then((response) => response.json())
     .then((data) => displayMovies(data.results))
     .catch((error) => console.error(error));
-}
-function displayMovies(movies) {
+};
+
+// Function to display a list of movies
+const displayMovies = (movies) => {
+  // Get the movie container element
   const movieContainer = document.getElementById("movie-container");
   movieContainer.innerHTML = "";
 
+  // Loop through the movies and create cards for each movie
   movies.forEach((movie) => {
     const movieCard = document.createElement("div");
     movieCard.className = "movie-card";
@@ -34,19 +43,14 @@ function displayMovies(movies) {
     movieCard.appendChild(movieOverview);
     movieContainer.appendChild(movieCard);
   });
-}
+};
 
+// Add event listener to the search button
 document.getElementById("search-button").addEventListener("click", () => {
   searchMovies(document.getElementById("search-input").value);
 });
 
-document
-  .getElementById("search-input")
-  .addEventListener("keypress", (event) => {
-    if (event.key === "Enter") {
-      searchMovies(event.target.value);
-    }
-  });
+// Add mouseover event listener to the movie container to show the movie overview
 document
   .getElementById("movie-container")
   .addEventListener("mouseover", (event) => {
@@ -57,6 +61,7 @@ document
     }
   });
 
+// Add mouseout event to hide the movie overview
 document
   .getElementById("movie-container")
   .addEventListener("mouseout", (event) => {
@@ -67,11 +72,20 @@ document
     }
   });
 
+// Function to fetch top-rated movies
 function fetchTopRatedMovies() {
+  // Construct the top-rated movies URL using the API key
   const topRatedURL = `${MOVIE_DB_BASE_URL}/movie/top_rated?api_key=${API_KEY}`;
+  
+  // Fetch data from the API, parse the JSON, and display the results
   fetch(topRatedURL)
     .then((response) => response.json())
-    .then((data) => displayMovies(data.results))
+    .then((data) => {
+      console.log(data.results);
+      return displayMovies(data.results);
+    })
     .catch((error) => console.error(error));
 }
+
+// Fetch and display top-rated movies on initial page load
 fetchTopRatedMovies();
